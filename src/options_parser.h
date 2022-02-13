@@ -1,5 +1,5 @@
-#ifndef MYCAT_CONFIG_FILE_H
-#define MYCAT_CONFIG_FILE_H
+#ifndef OPTIONS_PARSER_CONFIG_FILE_H
+#define OPTIONS_PARSER_CONFIG_FILE_H
 
 #include <boost/program_options.hpp>
 #include <string>
@@ -10,8 +10,6 @@ class OptionsParseException : public std::runtime_error {
 public:
     using runtime_error::runtime_error;
 };
-
-void assert_file_exist(const std::string &f_name);
 
 class command_line_options_t {
 public:
@@ -25,18 +23,20 @@ public:
     command_line_options_t& operator=(command_line_options_t&&) = delete;
     ~command_line_options_t() = default;
 
-    [[nodiscard]] std::vector<std::string> get_filenames() const { return filenames; };
-    [[nodiscard]] bool get_A_flag() const { return A_flag; };
+    [[nodiscard]] int get_method_number() const { return method_number; };
+    [[nodiscard]] std::string get_input_filename() const { return input_filename; };
+    [[nodiscard]] std::string get_output_filename() const { return output_filename; };
 
     void parse(int ac, char **av);
 private:
-    bool A_flag = false;
-    std::vector<std::string> filenames;
+    int method_number = 0;
+    std::string input_filename;
+    std::string output_filename;
 
     boost::program_options::variables_map var_map{};
-    boost::program_options::options_description opt_conf{
-            "Config File Options:\n\tmycat [-h|--help] [-A_flag] <file1> <file2> ... <fileN>\n"};
+    boost::program_options::options_description opt_conf{};
+    boost::program_options::positional_options_description opt_pos{};
 };
 
-#endif //MYCAT_CONFIG_FILE_H
+#endif //OPTIONS_PARSER_CONFIG_FILE_H
 

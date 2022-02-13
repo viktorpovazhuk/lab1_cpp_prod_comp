@@ -1,3 +1,8 @@
+/clion-cmake-build-debug/
+/clion-cmake-build-debug-clang/
+/venv/
+/data/out.txt
+
 ### C++ ###
 # Prerequisites
 *.d
@@ -482,3 +487,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+

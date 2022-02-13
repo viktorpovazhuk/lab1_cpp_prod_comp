@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.15)
 
 #! CHANGE YOUR PROJECT NAME
 #  It is used as your project's main executable name. 
-set(PROJECT_NAME template)
+set(PROJECT_NAME converter)
 project(${PROJECT_NAME} C CXX) # project(${PROJECT_NAME} C CXX ASM)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -17,10 +17,10 @@ set(CMAKE_CXX_STANDARD 17)
 
 #! It is a good practice to set "WARNINGS_AS_ERRORS" ON,
 #  but sometimes it creates too much trouble, so default is OFF.
-set(WARNINGS_AS_ERRORS OFF)
+set(WARNINGS_AS_ERRORS ON)
 
 #! Always use PVS Studio while developing. 
-set(ENABLE_PVS_STUDIO OFF)
+set(ENABLE_PVS_STUDIO ON)
 
 #! Select appropriate sanitizers.
 #  Definitely enable sanitizers while developing.
@@ -55,11 +55,11 @@ include(cmake/CompilerWarnings.cmake)
 ##########################################################
 
 #! Project main executable source compilation
-add_executable(${PROJECT_NAME} main.cpp
-				options_parser/options_parser.cpp options_parser/options_parser.h)
+add_executable(${PROJECT_NAME} src/main.cpp
+		src/options_parser.cpp src/options_parser.h)
 
 #! Put path to your project headers
-target_include_directories(${PROJECT_NAME} PRIVATE options_parser)
+target_include_directories(${PROJECT_NAME} PRIVATE src)
 
 #! Add external packages
 # options_parser requires boost::program_options library
