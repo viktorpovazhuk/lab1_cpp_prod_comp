@@ -7,17 +7,17 @@
 #include <chrono>
 #include <atomic>
 #include <sstream>
+#include <QString>
+#include "boost/lexical_cast.hpp"
 #include "options_parser.h"
 #include "errors.h"
 #include <memory>
 
 using std::cout;
 using std::endl;
-using std::vector;
-using std::unique_ptr;
 using std::make_unique;
-
-
+using std::unique_ptr;
+using std::vector;
 
 inline std::chrono::high_resolution_clock::time_point get_current_time_fenced()
 {
@@ -67,12 +67,37 @@ vector<double> convert_using_sscanf(const std::vector<std::string> &strs)
     return dd;
 }
 
-int main(int argc, char* argv[]) {
+vector<double> convert_using_boost(const std::vector<std::string> &strs)
+{
+    size_t n = strs.size();
+    std::vector<double> dd(n);
+    for (size_t i = 0; i < n; ++i)
+    {
+        dd[i] = boost::lexical_cast<double>(strs[i]);
+    }
+    return dd;
+}
+
+vector<double> convert_using_qt(const std::vector<std::string> &strs)
+{
+    size_t n = strs.size();
+    std::vector<double> dd(n);
+    for (size_t i = 0; i < n; ++i)
+    {
+        dd[i] = QString::fromStdString(strs[i]).toDouble();
+    }
+    return dd;
+}
+
+int main(int argc, char *argv[])
+{
     unique_ptr<command_line_options_t> command_line_options;
-    try {
+    try
+    {
         command_line_options = make_unique<command_line_options_t>(argc, argv);
     }
-    catch (std::exception &ex) {
+    catch (std::exception &ex)
+    {
         cout << "Program arguments parsing error" << endl;
         return Errors::ARGS_PARSER;
     }
@@ -113,18 +138,24 @@ int main(int argc, char* argv[]) {
 
     switch (command_line_options->get_method_number())
     {
-        case 1:
-            dd = convert_using_stringstream(strs);
-            break;
-        case 2:
-            dd = convert_using_stod(strs);
-            break;
-        case 3:
-            dd = convert_using_sscanf(strs);
-            break;
-        default:
-            std::cerr << "Incorrect method number" << std::endl;
-            return Errors::INCOR_METHOD_NUM;
+    case 1:
+        dd = convert_using_stringstream(strs);
+        break;
+    case 2:
+        dd = convert_using_stod(strs);
+        break;
+    case 3:
+        dd = convert_using_sscanf(strs);
+        break;
+    case 4:
+        dd = convert_using_boost(strs);
+        break;
+    case 5:
+        dd = convert_using_qt(strs);
+        break;
+    default:
+        std::cerr << "Incorrect method number" << std::endl;
+        return Errors::INCOR_METHOD_NUM;
     }
 
     double sum = 0;
@@ -155,7 +186,8 @@ int main(int argc, char* argv[]) {
         return Errors::OPEN_OUTPUT_FILE;
     }
 
-    output_file << sum << std::endl << av << std::endl;
+    output_file << sum << std::endl
+                << av << std::endl;
 
     if (!output_file)
     {
