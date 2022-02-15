@@ -74,7 +74,6 @@ if(APPLE)
 else()
 	find_package(Qt5 COMPONENTS Widgets REQUIRED)
 	target_link_libraries(converter Qt5::Widgets)
-
 endif()
 						
 ##########################################################
