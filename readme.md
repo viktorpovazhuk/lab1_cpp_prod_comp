@@ -11,15 +11,30 @@ Variant: 2 (string to double conversion)
 
 Tools to be installed:
 
-- gcc
-- cmake
-- pip
-- Qt 5 or 6
+* on each OS:
+  - pip
+* on Windows:
+  - MinGW
+  - gcc (in MinGW)
+  - cmake (in MinGW)
+  - boost (in MinGW)
+  - Qt 5 (in MinGW)
+* on Linux:
+  - gcc
+  - cmake
+  - Qt 5
+  - boost
+* on Apple:
+  - gcc
+  - cmake
+  - Qt 6
+  - boost
 
 ### Compilation
 
 To compile program:
 
+On Windows run MinGW and cd to repository directory.
 ```shell
 [user@pc .] $ ./compile --optimize-build
 ```
@@ -58,6 +73,12 @@ Program console parameters:
 ```
 
 You can specify each parameter with its flag in console or just enter them in appropriate order.
+
+In Windows either run from MinGW (recommended).
+Or run cmd as Admin and add path to mingw64 libraries to your PATH.
+```shell
+> setx path "%PATH%;%replace\with\path\to\msys64\directory\%mingw64\bin\"
+```
 
 Example of program run:
 
