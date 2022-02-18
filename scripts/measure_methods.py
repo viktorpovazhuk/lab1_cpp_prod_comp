@@ -21,7 +21,7 @@ def main():
         smallest_time = float('inf')
 
         for i in range(repetitions):
-            proc = Popen(["./bin/converter", str(m + 1),
+            proc = Popen(["./converter", str(m + 1),
                          input_file, output_file], stdout=PIPE, stderr=PIPE)
 
             (time, error) = proc.communicate()

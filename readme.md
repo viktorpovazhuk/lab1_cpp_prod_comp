@@ -36,27 +36,14 @@ To compile program:
 
 On Windows run MinGW and cd to repository directory.
 ```shell
-[user@pc .] $ ./compile --optimize-build
+[user@pc .] $ ./compile.sh --optimize-build
 ```
 
 ### Installation
 
 Compiled executable: automatically installed in ./bin during compilation.
 
-Python environment for time measuring script:
-
-```shell
-[user@pc .]$ pip install virtualenv
-[user@pc .]$ virtualenv venv
-[user@pc .]$ source venv/bin/activate
-[user@pc .]$ pip install -r ./dependencies/requirements.txt
-```
-
-To deactivate Python environment after using the script:
-
-```shell
-[user@pc .]$ deactivate
-```
+Create virtual python environment and install requirements in ./dependencies.
 
 ### Usage
 
@@ -77,7 +64,7 @@ You can specify each parameter with its flag in console or just enter them in ap
 In Windows either run from MinGW (recommended).
 Or run cmd as Admin and add path to mingw64 libraries to your PATH.
 ```shell
-> setx path "%PATH%;%replace\with\path\to\msys64\directory\%mingw64\bin\"
+> setx path "%PATH%;path\to\msys64\directory\wingw64\bin\"
 ```
 
 Example of program run:

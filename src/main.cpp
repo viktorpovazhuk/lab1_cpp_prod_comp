@@ -4,12 +4,13 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <string>
 #include <sstream>
 #include <QString>
+#include <memory>
 #include "boost/lexical_cast.hpp"
 #include "options_parser.h"
 #include "errors.h"
-#include <memory>
 #include "methods.h"
 
 using std::cout;
